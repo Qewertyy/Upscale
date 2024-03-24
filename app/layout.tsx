@@ -7,7 +7,7 @@ import "./globals.css";
 const font = Poppins({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
-  title: "Average Upscaler",
+  title: "Upscale",
   description: "Upscale Images, Powered By LexicaAPI https://lexica.qewertyy.dev",
 };
 
