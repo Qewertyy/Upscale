@@ -61,7 +61,7 @@ function Upscale() {
   }
   function validate() {
     if (format === "binary") {
-      if (!files) {
+      if (files.length === 0) {
         return false;
       }
     } else {
@@ -110,7 +110,7 @@ function Upscale() {
     router.refresh();
   }
   return (
-    <div className="flex justify-center flex-col items-center">
+    <div className="flex justify-center flex-col items-center min-h-[80vh] align-middle">
       <Tabs
         defaultValue="file"
         className="w-[100%] flex justify-center flex-col items-center gap-1"
