@@ -31,3 +31,4 @@ async function upscale(req: NextRequest) {
 }
 
 export { handler as POST};
+export const runtime = 'edge';
