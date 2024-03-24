@@ -149,7 +149,7 @@ function Upscale() {
           className="w-[100%] flex justify-center flex-col items-center"
         >
           <Input
-            type="text"
+            type="url"
             className="w-[90%] md:w-[45%] dark:bg-black dark:text-white mb-4"
             placeholder="Image URL"
             onChange={(e) => {
