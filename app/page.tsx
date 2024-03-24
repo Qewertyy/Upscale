@@ -1,17 +1,13 @@
 "use client";
 import { Dropzone } from "@/components/ui/dropzone";
 import React, { useState } from "react";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { encodeUInt8ArraytoB4 } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast/useToast";
+import { LoadImage } from "@/components/loadImage";
 
 export default function HomeLayout() {
   return (
@@ -23,12 +19,14 @@ export default function HomeLayout() {
   );
 }
 
-
 function Upscale() {
   const [files, setFiles] = useState<FileList | []>([]);
   const [image, setImage] = useState<string | null>(null);
   const [format, setFormat] = useState<"url" | "binary">("binary");
-  const [upscaledImage, setUpscaledImage] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [upscaledImage, setUpscaledImage] = useState<string | undefined>(
+    undefined
+  );
   const router = useRouter();
   const { toast } = useToast();
   async function handleUpscale(a?: string) {
@@ -53,7 +51,8 @@ function Upscale() {
         const data = await response.json();
         setUpscaledImage(data.url);
       }
-    }else{
+      setLoading(false);
+    } else {
       toast({
         title: "Error",
         description: "Failed to upscale image",
@@ -62,7 +61,7 @@ function Upscale() {
   }
   function validate() {
     if (format === "binary") {
-      if (!files) {
+      if (files.length === 0) {
         return false;
       }
     } else {
@@ -79,7 +78,8 @@ function Upscale() {
         description: "Please provide an image",
       });
       return;
-    };
+    }
+    setLoading(true);
     toast({
       title: "Upscaling...",
       description: "This may take a few minutes",
@@ -110,7 +110,7 @@ function Upscale() {
     router.refresh();
   }
   return (
-    <div className="flex justify-center flex-col items-center">
+    <div className="flex justify-center flex-col items-center min-h-[80vh] align-middle">
       <Tabs
         defaultValue="file"
         className="w-[100%] flex justify-center flex-col items-center gap-1"
@@ -160,7 +160,9 @@ function Upscale() {
       </Tabs>
       <Button onClick={handleImage}>Upscale</Button>
       <div className="flex flex-col items-center gap-4 mt-7 mb-10">
-        {upscaledImage ? (
+        {loading ? (
+          <LoadImage />
+        ) : upscaledImage ? (
           <>
             <img
               src={upscaledImage}
@@ -169,7 +171,7 @@ function Upscale() {
             />
             <Button onClick={() => downloadImage()}>Download</Button>
           </>
-        ) : null}
+        ): null}
       </div>
     </div>
   );
