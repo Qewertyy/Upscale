@@ -14,6 +14,7 @@ export default function HomeLayout() {
     <div className="flex sm:flex-row flex-col items-start sm:gap-12 gap-4 w-full p-[40px]">
       <div className="w-full">
         <Upscale />
+        <p className="text-center mb-3">Source -&gt; <a target="_blank" className=" text-blue-200 hover:underline" href="https://github.com/Qewertyy/Upscale">Github</a></p>
       </div>
     </div>
   );
@@ -45,7 +46,7 @@ function Upscale() {
       if (format === "binary") {
         setUpscaledImage(
           "data:image/png;base64," +
-            encodeUInt8ArraytoB4(new Uint8Array(await response.arrayBuffer()))
+          encodeUInt8ArraytoB4(new Uint8Array(await response.arrayBuffer()))
         );
       } else {
         const data = await response.json();
@@ -171,7 +172,7 @@ function Upscale() {
             />
             <Button onClick={() => downloadImage()}>Download</Button>
           </>
-        ): null}
+        ) : null}
       </div>
     </div>
   );
