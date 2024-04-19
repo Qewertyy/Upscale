@@ -14,6 +14,7 @@ export default function HomeLayout() {
     <div className="flex sm:flex-row flex-col items-start sm:gap-12 gap-4 w-full p-[40px]">
       <div className="w-full">
         <Upscale />
+        <p className="text-center mb-3">Source -&gt; <a target="_blank" className=" text-blue-200 hover:underline" href="https://github.com/Qewertyy/Upscale">Github</a></p>
       </div>
     </div>
   );
